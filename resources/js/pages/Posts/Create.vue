@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue'
-import { Head, router, useForm, usePage } from '@inertiajs/vue3'
+import { Head, useForm, usePage } from '@inertiajs/vue3'
 import { onMounted } from 'vue'
 import { initFlowbite } from 'flowbite'
 import type { BreadcrumbItem } from '@/types'

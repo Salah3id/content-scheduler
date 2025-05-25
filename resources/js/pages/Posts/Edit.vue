@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue'
-import { Head, router } from '@inertiajs/vue3'
+import { Head} from '@inertiajs/vue3'
 import type { BreadcrumbItem } from '@/types'
 import { onMounted } from 'vue'
 import { initFlowbite } from 'flowbite'
@@ -47,9 +47,9 @@ interface Post {
     }
 }
 
-const props = defineProps<{
+defineProps<{
     posts: Post
-    filters: Object
+    filters: object
 }>()
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Posts', href: '/posts' },

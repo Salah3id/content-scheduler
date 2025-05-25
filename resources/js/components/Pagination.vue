@@ -22,7 +22,7 @@ interface Meta {
 const props = defineProps<{
   links: Links;
   meta: Meta;
-  filters: Object;
+  filters: object;
 }>();
 
 

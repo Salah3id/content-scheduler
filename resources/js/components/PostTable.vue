@@ -44,9 +44,9 @@ interface PostPagination {
 }
 
 
-const props = defineProps<{
+defineProps<{
     posts: PostPagination
-    filters: Object
+    filters: object
 }>()
 
 const handleFilter = (filters: any) => {
