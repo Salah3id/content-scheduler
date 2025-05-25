@@ -15,11 +15,15 @@ withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-    <AppShell variant="sidebar">
-        <AppSidebar />
-        <AppContent variant="sidebar">
-            <AppSidebarHeader :breadcrumbs="breadcrumbs" />
-            <slot />
-        </AppContent>
-    </AppShell>
+  <AppShell variant="sidebar">
+    <AppSidebar />
+    <AppContent variant="sidebar">
+      <AppSidebarHeader :breadcrumbs="breadcrumbs">
+        <template #sidebar-actions>
+          <slot name="sidebar-actions" />
+        </template>
+      </AppSidebarHeader>
+      <slot />
+    </AppContent>
+  </AppShell>
 </template>
