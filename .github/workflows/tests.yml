@@ -54,17 +54,6 @@ jobs:
       - name: Copy .env.testing
         run: cp .env.testing .env
 
-      - name: Generate Application Key
-        run: php artisan key:generate
-
-      - name: Clear and cache config
-        run: |
-          php artisan config:clear
-          php artisan config:cache
-
-      - name: Debug APP_KEY
-        run: 'php -r "echo env(''APP_KEY'') ?: ''APP_KEY not loaded'';"'
-
       - name: Wait for MySQL
         run: |
           until mysqladmin ping -h "127.0.0.1" --silent; do
