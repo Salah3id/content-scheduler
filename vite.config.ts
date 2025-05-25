@@ -11,6 +11,7 @@ export default defineConfig({
             input: [
                 'resources/js/app.ts',
                 'resources/css/app.css', 
+                'resources/css/flowbite.min.css'
             ],
             ssr: 'resources/js/ssr.ts',
             refresh: true,
