@@ -1,9 +1,15 @@
-@import 'tailwindcss';
 
+@import 'tailwindcss';
 @import "tw-animate-css";
+@import "flowbite/src/themes/default";
+
+@plugin "flowbite/plugin";
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
+@source "../node_modules/flowbite-datepicker";
+@source "../node_modules/flowbite";
+
 
 @custom-variant dark (&:is(.dark *));
 
