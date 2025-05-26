@@ -20,7 +20,7 @@ class UpdatePostRequest extends FormRequest
             'scheduled_time' => ['required', 'date'],
             'platform_ids'   => ['required', 'array'],
             'platform_ids.*' => ['exists:platforms,id'],
-            'image'          => ['nullable', 'image', 'max:2048', new PlatformValidationRule($this->platform_ids)],
+            'image'          => ['nullable', 'image', 'max:2048'],
         ];
     }
 }

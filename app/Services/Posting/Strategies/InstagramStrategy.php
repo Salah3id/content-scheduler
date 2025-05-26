@@ -2,17 +2,18 @@
 
 namespace App\Services\Posting\Strategies;
 
+use App\DTOs\Posts\PostPublishData;
 use App\Services\Posting\Contracts\PostStrategyInterface;
 
 class InstagramStrategy implements PostStrategyInterface
 {
-    public function publish(array $data)
+    public function publish(PostPublishData $data): bool
     {
-        return true;
+        return rand(0, 1); 
     }
 
-    public function delete($postId)
+    public function delete($postId): bool
     {
-        return true;
+        return rand(0, 1); 
     }
 }

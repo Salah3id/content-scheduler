@@ -8,6 +8,7 @@ use App\Enums\PostStatus;
 use App\Models\Post;
 use App\Repositories\BaseRepository\BaseRepository;
 use App\Repositories\Contracts\PostRepositoryInterface;
+use Illuminate\Database\Eloquent\Collection;
 
 class PostRepository extends BaseRepository implements PostRepositoryInterface
 {
@@ -59,6 +60,10 @@ class PostRepository extends BaseRepository implements PostRepositoryInterface
 
         $post->platforms()->sync($syncPlatforms);
 
+        if ($data->image) {
+            $post->addMedia($data->image)->toMediaCollection('post_cover');
+        }
+
         return $post;
     }
 
@@ -84,6 +89,21 @@ class PostRepository extends BaseRepository implements PostRepositoryInterface
 
         $post->platforms()->sync($syncPlatforms);
 
+        if ($data->image) {
+            $post->clearMediaCollection('post_cover');
+            $post->addMedia($data->image)->toMediaCollection('post_cover');
+        }
+
         return $post;
+    }
+
+
+    public function getDuePosts()
+    {
+        return (new $this->model)
+            ->where('status', PostStatus::SCHEDULED)
+            ->where('scheduled_time', '<=', now())
+            ->with('platforms')
+            ->get();
     }
 }

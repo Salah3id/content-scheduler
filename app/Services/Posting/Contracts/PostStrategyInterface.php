@@ -2,6 +2,8 @@
 
 namespace App\Services\Posting\Contracts;
 
+use App\DTOs\Posts\PostPublishData;
+
 interface PostStrategyInterface
 {
     /**
@@ -10,7 +12,7 @@ interface PostStrategyInterface
      * @param array $data
      * @return mixed
      */
-    public function publish(array $data);
+    public function publish(PostPublishData $data);
 
 
     /**

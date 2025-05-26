@@ -13,7 +13,7 @@ class PlatformValidationRule implements ValidationRule
     protected string $field = '';
     protected $value;
 
-    public function __construct(array $platformIds)
+    public function __construct(?array $platformIds = [])
     {
         $this->platformTypes = collect($platformIds)->map(function ($platformId) {
             $platform = Platform::find($platformId);

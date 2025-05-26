@@ -22,6 +22,7 @@ class PostResource extends JsonResource
                 'label' => $this->status->label(),
                 'color' => $this->status->color(),
             ],
+            'image' => $this->getFirstMediaUrl('post_cover'),
             'platforms' => PlatformResource::collection($this->whenLoaded('platforms')),
             'scheduled_time' => $this->scheduled_time->format('Y M d '),
             'created_at' => $this->created_at->format('Y M d H:i'),

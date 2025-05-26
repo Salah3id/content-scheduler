@@ -41,12 +41,12 @@ const mainNavItems: NavItem[] = [
 const footerNavItems: NavItem[] = [
     {
         title: 'Github Repo',
-        href: 'https://github.com/Salah3id/content_scheduler',
+        href: 'https://github.com/Salah3id/content-scheduler',
         icon: Github,
     },
     {
         title: 'API Documentation',
-        href: 'https://www.postman.com/acairo/workspace/public/request/24549944-7e1ba1e5-be5c-4c52-a451-a729d01e5b8d?action=share&creator=24549944&ctx=documentation&active-environment=24549944-12e70e7f-ff8e-4c0f-960f-9d39600ab9ed',
+        href: 'https://www.postman.com/salah3id/workspace/practicing/collection/27536537-7a278c77-0916-41b7-af52-d6eece178949?action=share&creator=27536537&active-environment=27536537-3146d30f-ddee-4e78-9cf1-36709ac939f7',
         icon: Code,
     },
 ];

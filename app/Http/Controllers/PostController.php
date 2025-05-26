@@ -29,7 +29,7 @@ class PostController extends Controller
         $posts = $this->repository
             ->applyQuery()
             ->ownedByUser()
-            ->with('platforms')
+            ->with(['platforms'])
             ->orderByDesc('created_at')
             ->paginate(10);
 
@@ -47,7 +47,7 @@ class PostController extends Controller
     {
         return $this->useView('Posts/Create')
             ->addData('platforms', PlatformResource::collection(
-                app(PlatformRepositoryInterface::class)->all()
+                app(PlatformRepositoryInterface::class)->activeForUser()
             ))
             ->response();
     }

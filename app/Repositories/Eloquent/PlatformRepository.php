@@ -61,4 +61,25 @@ class PlatformRepository extends BaseRepository implements PlatformRepositoryInt
                 return $platform;
             });
     }
+
+    public function users(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class)
+            ->withPivot('is_active')
+            ->withTimestamps();
+    }
+
+    public function activeForUser($userId = null)
+    {
+        if (is_null($userId)) {
+            $userId = auth()->id();
+        }
+
+        return $this->model()::query()
+            ->whereHas('users', function ($query) use ($userId) {
+                $query->where('user_id', $userId)
+                    ->where('is_active', true);
+            })
+            ->get();
+    }
 }

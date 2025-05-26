@@ -37,6 +37,7 @@ class PostFactory extends Factory
             }
 
             $post->platforms()->attach($pivotData);
+
         });
     }
 }

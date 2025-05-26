@@ -110,7 +110,7 @@ php artisan test
 
 You can explore and test the API endpoints using Postman.  
 Access the Postman documentation here:  
-[Postman API Docs](https://www.postman.com/yourusername/workspace/content-scheduler) 
+[Postman API Docs](https://www.postman.com/salah3id/workspace/practicing/collection/27536537-7a278c77-0916-41b7-af52-d6eece178949?action=share&creator=27536537&active-environment=27536537-3146d30f-ddee-4e78-9cf1-36709ac939f7) 
 
 ## Demo Video
 
