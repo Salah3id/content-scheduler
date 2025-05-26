@@ -1,4 +1,5 @@
 <script setup lang="ts">
+
 import { router } from '@inertiajs/vue3'
 
 const goToCreate = () => router.visit('/posts/create')

@@ -5,32 +5,49 @@ import NavUser from '@/components/NavUser.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
-import { BookOpen, Folder, LayoutGrid } from 'lucide-vue-next';
+import {
+    ChartColumnIncreasing,
+    NotebookPen,
+    Network,
+    Settings,
+    Code,
+    Github
+} from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
 const mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
         href: '/dashboard',
-        icon: LayoutGrid,
+        icon: ChartColumnIncreasing,
     },
     {
         title: 'Posts',
         href: '/posts',
-        icon: LayoutGrid,
+        icon: NotebookPen,
+    },
+    {
+        title: 'Platforms',
+        href: '/platforms',
+        icon: Network,
+    },
+    {
+        title: 'Settings',
+        href: 'settings/profile',
+        icon: Settings,
     },
 ];
 
 const footerNavItems: NavItem[] = [
     {
         title: 'Github Repo',
-        href: 'https://github.com/laravel/vue-starter-kit',
-        icon: Folder,
+        href: 'https://github.com/Salah3id/content_scheduler',
+        icon: Github,
     },
     {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#vue',
-        icon: BookOpen,
+        title: 'API Documentation',
+        href: 'https://www.postman.com/acairo/workspace/public/request/24549944-7e1ba1e5-be5c-4c52-a451-a729d01e5b8d?action=share&creator=24549944&ctx=documentation&active-environment=24549944-12e70e7f-ff8e-4c0f-960f-9d39600ab9ed',
+        icon: Code,
     },
 ];
 </script>
@@ -42,7 +59,7 @@ const footerNavItems: NavItem[] = [
                 <SidebarMenuItem>
                     <SidebarMenuButton size="lg" as-child>
                         <Link :href="route('dashboard')">
-                            <AppLogo />
+                        <AppLogo />
                         </Link>
                     </SidebarMenuButton>
                 </SidebarMenuItem>

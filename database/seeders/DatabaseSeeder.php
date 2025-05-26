@@ -17,12 +17,6 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        User::factory()->create([
-            'name' => 'Salah Eid',
-            'email' => 'test@content.com',
-        ]);
-
-        User::factory(5)->create();
 
         collect([
             ['name' => 'Facebook', 'type' => PlatformType::FACEBOOK],
@@ -31,6 +25,15 @@ class DatabaseSeeder extends Seeder
             ['name' => 'LinkedIn', 'type' => PlatformType::LINKEDIN],
         ])->each(fn($platform) => Platform::factory()->create($platform));
 
+        User::factory()->create([
+            'name' => 'Salah Eid',
+            'email' => 'test@content.com',
+        ]);
+
+        User::factory(5)->create();
+
         Post::factory(1000)->create();
+
+
     }
 }

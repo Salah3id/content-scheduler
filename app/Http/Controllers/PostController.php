@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\DTOs\Posts\CreatePostData;
-use App\Http\Requests\CreatePostRequest;
+use App\DTOs\Posts\UpdatePostData;
+use App\Http\Requests\Post\CreatePostRequest;
+use App\Http\Requests\Post\UpdatePostRequest;
 use App\Http\Resources\PlatformResource;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
@@ -55,12 +57,18 @@ class PostController extends Controller
      */
     public function store(CreatePostRequest $request, PostService $service)
     {
-         $post = $service->create(
+        $post = $service->create(
             data: CreatePostData::fromRequest($request)
-         );
+        );
 
-
-        dd($post);
+        return $this->addData('post', $post)
+            ->useResource(PostResource::class)
+            ->addData('toast', [
+                'type' => 'success',
+                'message' => 'Post created successfully',
+            ])
+            ->addRedirect('posts.index')
+            ->response();
     }
 
     /**
@@ -68,9 +76,10 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        $post->load('platforms');
-
-        return $this->addData('post', $post)
+        return $this->addData('post', $post->load('platforms'))
+            ->addData('platforms', PlatformResource::collection(
+                app(PlatformRepositoryInterface::class)->all()
+            ))
             ->useView('Posts/Edit')
             ->response();
     }
@@ -78,16 +87,38 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $post)
+    public function update(UpdatePostRequest $request, Post $post, PostService $service)
     {
-        //
+        $post = $service->update(
+            data: UpdatePostData::fromRequest($request)
+        );
+
+        return $this->addData('post', $post)
+            ->useResource(PostResource::class)
+            ->addData('toast', [
+                'type' => 'success',
+                'message' => 'Post updated successfully',
+            ])
+            ->addRedirect('posts.index', ['filter[id]' => $post->id])
+            ->response();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Post $post)
+    public function destroy(Post $post, PostService $service)
     {
-        //
+        $service->delete($post);
+        
+        return $this
+            ->addData('post', $post)
+            ->addData('toast', [
+                'type' => 'success',
+                'message' => 'Post deleted successfully',
+            ])
+
+            ->useResource(PostResource::class)
+            ->addRedirect('posts.index')
+            ->response();
     }
 }
