@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('post_platforms', function (Blueprint $table) {
+        Schema::create('platform_post', function (Blueprint $table) {
             $table->id();
             $table->foreignId('post_id')->constrained()->onDelete('cascade');
-            $table->foreignId('platform_id')->constrained('platforms')->onDelete('cascade');
+            $table->foreignId('platform_id')->constrained()->onDelete('cascade');
             $table->integer('platform_status');
             $table->softDeletes();
             $table->timestamps();

@@ -6,11 +6,12 @@ use App\Enums\PostStatus;
 use App\Models\Relations\PostRelationsTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 class Post extends Model
 {
-    use HasFactory, PostRelationsTrait; 
+    use HasFactory, PostRelationsTrait, SoftDeletes;
 
     protected $fillable = [
         'title',

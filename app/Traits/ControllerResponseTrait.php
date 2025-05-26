@@ -11,6 +11,7 @@ trait ControllerResponseTrait
     protected string|null $resourceClass = null;
     protected string|null $view = null;
     protected bool $isCollection = false;
+    protected ?string $redirectRoute = null;
 
     public function addData(string $key, $value): static
     {
@@ -37,18 +38,26 @@ trait ControllerResponseTrait
         return $this;
     }
 
+    public function addRedirect(string $route, array $params = []): static
+    {
+        $this->redirectRoute = $route;
+        $this->redirectParams = $params;
+        return $this;
+    }
+
     public function response()
     {
+        if ($this->redirectRoute && !request()->wantsJson()) {
+            return redirect()->route($this->redirectRoute, $this->redirectParams)->with($this->responseData);
+        }
+
         if ($this->resourceClass) {
             $mainKey = array_key_first($this->responseData);
-
             $mainValue = $this->responseData[$mainKey];
 
-            if ($this->isCollection) {
-                $resource = $this->resourceClass::collection($mainValue);
-            } else {
-                $resource = new $this->resourceClass($mainValue);
-            }
+            $resource = $this->isCollection
+                ? $this->resourceClass::collection($mainValue)
+                : new $this->resourceClass($mainValue);
 
             if (request()->wantsJson()) {
                 return $resource->additional([
@@ -63,7 +72,6 @@ trait ControllerResponseTrait
         }
 
         if (request()->wantsJson()) {
-
             return response()->json([
                 'data' => $this->responseData,
                 'filters' => $this->filterData,

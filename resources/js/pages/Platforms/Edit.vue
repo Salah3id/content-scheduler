@@ -45,8 +45,7 @@ const form = useForm({
 })
 
 const submit = () => {
-  form.post(`/posts/${post.id}`, {
-    method: 'put',
+  form.put(`/posts/${post.id}`, {
     onSuccess: () => {
     }
   })

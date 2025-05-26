@@ -2,64 +2,56 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Platform;
+use App\Http\Resources\PlatformResource;
+use App\Repositories\Contracts\PlatformRepositoryInterface;
+use App\Traits\ControllerResponseTrait;
 use Illuminate\Http\Request;
 
 class PlatformController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    use ControllerResponseTrait;
+
+    public function __construct(PlatformRepositoryInterface $repository)
+    {
+        $this->repository = $repository;
+    }
+
     public function index()
     {
-        //
+        $platforms = $this->repository
+            ->applyQuery()
+            ->paginate(10);
+
+        return $this->addData('platforms', $platforms->load('users'))
+            ->useResource(PlatformResource::class, true)
+            ->useView('Platforms/Index')
+            ->response();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function toggleUserStatus(Request $request, int $platformId)
     {
-        //
-    }
+        $platform = $this->repository->findOrFail($platformId);
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        // TODO: refactor this to a service
+        $userId = $request->user()->id;
+        $currentStatus = $platform->users()
+            ->wherePivot('user_id', $userId)
+            ->first()
+            ->pivot
+            ->is_active;
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Platform $platform)
-    {
-        //
-    }
+        $platform->users()->updateExistingPivot($userId, [
+            'is_active' => !$currentStatus
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Platform $platform)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Platform $platform)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Platform $platform)
-    {
-        //
+        return $this
+            ->addData('platform', $platform->load('users'))
+            ->useResource(PlatformResource::class)
+            ->addRedirect('platforms.index')
+            ->addData('toast', [
+                'type' => 'success',
+                'message' => 'User status toggled successfully.',
+            ])
+            ->response();
     }
 }
