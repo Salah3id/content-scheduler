@@ -61,6 +61,11 @@ A Laravel-based platform for scheduling, publishing, and analyzing posts across 
    php artisan serve
 ```
 
+7. **Link storage path:**
+```bash 
+   php artisan storage:link
+```
+
 ---
 
 ## ✅ Approach & Trade-offs
@@ -116,4 +121,4 @@ Access the Postman documentation here:
 
 Watch the demo video showcasing the main features and workflow of the Content Scheduler:
 
-[![Demo Video](https://img.youtube.com/vi/iNRLouPbfsw/0.jpg)](#)
+[![Demo Video](https://img.youtube.com/vi/iNRLouPbfsw/0.jpg)](https://drive.google.com/file/d/1kKKx4-MTlBwAPaJIz1nrsvaC8S-y5kSt/view?usp=sharing)
